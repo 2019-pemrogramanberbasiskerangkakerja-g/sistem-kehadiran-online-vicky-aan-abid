@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2019 at 08:41 PM
+-- Generation Time: Apr 27, 2019 at 10:16 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -32,7 +32,7 @@ CREATE TABLE `absensi` (
   `id_absen` int(11) NOT NULL,
   `nrp` varchar(14) NOT NULL,
   `kelas` char(1) NOT NULL,
-  `pertemuan` tinyint(4) NOT NULL,
+  `id_pertemuan` varchar(2) NOT NULL,
   `tanggal` date NOT NULL,
   `jam_datang` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `jam_pulang` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -49,6 +49,13 @@ CREATE TABLE `admin` (
   `password` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`username`, `password`) VALUES
+('admin', 'admin');
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +63,8 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `jadwal` (
+  `id_pertemuan` varchar(2) NOT NULL,
+  `kelas` char(1) NOT NULL,
   `pertemuan` tinyint(4) NOT NULL,
   `jam_masuk` time NOT NULL,
   `jam_selesai` time NOT NULL
@@ -74,6 +83,13 @@ CREATE TABLE `mahasiswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`nrp`, `nama`, `kelas`) VALUES
+('05111540000105', 'Vicky Mahfudy', 'G');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -83,13 +99,13 @@ CREATE TABLE `mahasiswa` (
 ALTER TABLE `absensi`
   ADD PRIMARY KEY (`id_absen`),
   ADD KEY `nrp` (`nrp`),
-  ADD KEY `pertemuan` (`pertemuan`);
+  ADD KEY `pertemuan` (`id_pertemuan`);
 
 --
 -- Indexes for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  ADD PRIMARY KEY (`pertemuan`);
+  ADD PRIMARY KEY (`id_pertemuan`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -116,7 +132,7 @@ ALTER TABLE `absensi`
 --
 ALTER TABLE `absensi`
   ADD CONSTRAINT `absensi_ibfk_1` FOREIGN KEY (`nrp`) REFERENCES `mahasiswa` (`nrp`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `absensi_ibfk_2` FOREIGN KEY (`pertemuan`) REFERENCES `jadwal` (`pertemuan`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `absensi_ibfk_2` FOREIGN KEY (`id_pertemuan`) REFERENCES `jadwal` (`id_pertemuan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
