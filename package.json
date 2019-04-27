@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "login",
   "version": "1.0.0",
   "description": "",
@@ -10,33 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "alert-node": "^1.2.4",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "mysql": "^2.16.0",
-    "popups": "^1.1.3"
+    "mysql": "^2.16.0"
   }
-=======
-  "name": "sistem-kehadiran-online-vicky-aan-abid",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.16.4"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/2019-pemrogramanberbasiskerangkakerja-g/sistem-kehadiran-online-vicky-aan-abid.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/2019-pemrogramanberbasiskerangkakerja-g/sistem-kehadiran-online-vicky-aan-abid/issues"
-  },
-  "homepage": "https://github.com/2019-pemrogramanberbasiskerangkakerja-g/sistem-kehadiran-online-vicky-aan-abid#readme"
->>>>>>> d01ffb7e2d1b7e4c10f0c525eb0e82833cd4bc66
 }
