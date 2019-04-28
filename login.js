@@ -26,6 +26,18 @@ app.get('/', function(request, response) {
 	response.sendFile(path.join(__dirname + '/login.html'));
 });
 
+app.get('/rekap_absen', function(request, response) {
+	response.sendFile(path.join(__dirname + '/rekap absen.html'));
+});
+
+app.get('/set_jadwal', function(request, response) {
+	response.sendFile(path.join(__dirname + '/set_jadwal.html'));
+});
+
+app.get('/absen', function(request, response) {
+	response.sendFile(path.join(__dirname + '/Tambah_Mhs.html'));
+});
+
 app.post('/auth', function(request, response) {
 	var username = request.body.username;
 	var password = request.body.password;
