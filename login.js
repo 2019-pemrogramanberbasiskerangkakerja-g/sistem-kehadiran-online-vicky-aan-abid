@@ -44,9 +44,14 @@ app.post('/auth', function(request, response) {
 	if (username && password) {
 		connection.query('SELECT * FROM admin WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.send('Sukses!');
+				if (username == 'admin'){
+					request.session.loggedin = true;
+					request.session.username = username;
+					response.redirect('/set_jadwal');
+				}
+				else {
+					response.redirect('/rekap_absen');
+				}
 			} else {
 				response.send('Gagal!');
 			}			
