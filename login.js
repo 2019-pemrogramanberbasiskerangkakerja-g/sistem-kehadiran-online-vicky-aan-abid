@@ -2,7 +2,10 @@ var mysql = require('mysql');
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var path = require('path');
+var multer = require('multer');
+var upload = multer();
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
@@ -19,8 +22,16 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
+app.use(upload.array());
+
+//Require the Router we defined in movies.js
+var rekap = require('./rekap.js');
+
+//Use the Router on the sub route /movies
+app.use('/rekap', rekap);
 
 app.get('/', function(request, response) {
 	response.sendFile(path.join(__dirname + '/login.html'));
