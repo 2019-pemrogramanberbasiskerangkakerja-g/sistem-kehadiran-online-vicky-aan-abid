@@ -118,9 +118,9 @@ app.get('/auth/logout', function(request, response) {
     POST /absen/
     Body: ruang, nrp
 */
-app.post('/absen/:ruang/:nrp', function(request, response) {
-  var namaruang = request.params.ruang;
-  var nomorinduk = request.params.nrp;
+app.post('/absen', function(req, res) {
+  var namaruang = req.body.ruang;
+  var nomorinduk = req.body.nrp;
   var status = "1";
   var date = new Date();
 
@@ -130,7 +130,7 @@ app.post('/absen/:ruang/:nrp', function(request, response) {
       console.log(error);
     }
     if (results.length == 0 ){
-      response.status(404).json({ error: 'Mahasiswa tidak terdaftar' });
+      res.status(404).json({ error: 'Mahasiswa tidak terdaftar' });
     }else{
       var idtransaksi = results[0].id_transaksi;
       db.query('INSERT INTO transaksi_user (id_user,id_transaksi,waktu,status) values (?,?,?,?)',
@@ -242,6 +242,35 @@ app.post('/tambahmahasiswa', function (req, res) {
         }
         res.status(200).json({ OK: 'Akun '+nomorinduk+' berhasil dibuat' });
       });
+    }
+  });
+});
+
+/*
+7. Tambah user mahasiswa ke mata kuliah
+    GET /tambahpeserta
+    Body: idmatkul, nrp
+*/
+app.post('/tambahpeserta', function (req, res) {
+  var idmatkul = req.body.id_matkul;
+  var nomorinduk = req.body.nrp;
+
+  db.query('SELECT * FROM matkul a, daftar_peserta b,user c WHERE a.id_matkul=b.id_matkul AND c.id_user=b.id_user AND id_matkul=? and id_user=?',
+   [idmatkul,nomorinduk], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }
+    if (results.length > 0){
+      res.status(404).json({ error: 'Peserta '+results[0].nama_user+' sudah terdaftar' });
+    }else{
+      db.query('INSERT INTO daftar_peserta (id_matkul,id_user) values (?,?)',
+        [idmatkul,nomorinduk], function (error, results, fields) {
+          if (error){
+            console.log(error);
+          }else{
+            res.status(200).json({ OK: 'Peserta berhasil ditambahkan' });
+          }
+        });
     }
   });
 });
