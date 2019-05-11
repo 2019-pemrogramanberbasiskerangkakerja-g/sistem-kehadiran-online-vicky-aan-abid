@@ -157,3 +157,21 @@ app.get('/rekappersemester/:id_matkul', function (req, res) {
     }
   });
 });
+
+/*
+3. Rekap kuliah per pertemuan
+    GET /rekappertemuan/IDMATAKULIAH/PERTEMUANKE
+*/
+app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
+  var idmatkul = req.params.id_matkul;
+  var pertemuanke = req.params.pertemuanke;
+
+  db.query('SELECT a.pertemuan_ke, b.nama_matkul, b.kelas, a.waktu_awal, a.waktu_akhir, a.ruangan FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? AND a.pertemuan_ke=? ORDER BY a.pertemuan_ke',
+   [idmatkul,pertemuanke], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }else{
+      res.status(200).json(results);
+    }
+  });
+});
