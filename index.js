@@ -36,6 +36,10 @@ db.connect(function(err) {
   }
 })
 
+root.listen(3000, function() {
+  console.log('Listening to port: 3000');
+});
+
 //------------REGISTER-------------//
 app.get('/auth/register', function(request, response) {
   response.render('auth/register');
@@ -117,7 +121,7 @@ app.get('/auth/logout', function(request, response) {
 app.post('/absen/:ruang/:nrp', function(request, response) {
   var namaruang = request.params.ruang;
   var nomorinduk = request.params.nrp;
-  var status = "2";
+  var status = "1";
   var date = new Date();
 
   db.query('SELECT d.nomorinduk, c.namaruang,c.id_transaksi FROM daftar_peserta a, matkul b, transaksi_matkul c, user d WHERE b.id_matkul = a.id_matkul AND d.id_user=a.id_user AND c.id_matkul = b.id_matkul AND d.nomorinduk=? AND c.namaruang=?',
@@ -201,12 +205,43 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
 app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
   var nomorinduk = req.params.nrp;
   var idsemester = req.params.id_semester;
+
   db.query('SELECT * FROM user a, transaksi_user b, transaksi_matkul c, matkul d WHERE a.id_user = b.id_user AND b.id_transaksi = c.id_transaksi AND c.id_matkul = d.id_matkul AND a.nomorinduk=? AND d.semester=?',
    [nomorinduk,idsemester], function (error, results, fields) {
     if (error){
       console.log(error);
     }else{
       res.status(200).json(results);
+    }
+  });
+});
+
+/*
+6. Tambah user mahasiswa baru
+    POST /tambahmahasiswa
+    Body: nrp, nama, password
+*/
+app.post('/tambahmahasiswa', function (req, res) {
+  var nomorinduk = req.body.nrp;
+  var nama = req.body.nama;
+  var password = req.body.password;
+  var pass  = md5(password);
+
+  db.query('select id_user from user where nomorinduk=? and password=?',
+   [nomorinduk,pass], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }
+    if (results.length > 0){
+      res.status(404).json({ error: 'NRP/NIP sudah digunakan' });
+    }else{
+      db.query('INSERT INTO user (nomorinduk,nama_user,password,role) values (?,?,?,?)',
+       [nomorinduk,nama,pass,'1'], function (error, results, fields) {
+        if (error){
+          console.log(error);
+        }
+        res.status(200).json({ OK: 'Akun '+nomorinduk+' berhasil dibuat' });
+      });
     }
   });
 });
