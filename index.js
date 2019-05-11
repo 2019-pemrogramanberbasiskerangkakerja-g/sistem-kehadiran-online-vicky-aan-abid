@@ -248,7 +248,7 @@ app.post('/tambahmahasiswa', function (req, res) {
 
 /*
 7. Tambah user mahasiswa ke mata kuliah
-    GET /tambahpeserta
+    POST /tambahpeserta
     Body: idmatkul, nrp
 */
 app.post('/tambahpeserta', function (req, res) {
@@ -269,6 +269,36 @@ app.post('/tambahpeserta', function (req, res) {
             console.log(error);
           }else{
             res.status(200).json({ OK: 'Peserta berhasil ditambahkan' });
+          }
+        });
+    }
+  });
+});
+
+/*
+8. Tambah mata kuliah baru
+    POST /tambahmatkul
+    Body: nama_matkul, kelas, semester
+*/
+app.post('/tambahmatkul', function (req, res) {
+  console.log(req.body);
+  var namamatkul = req.body.nama_matkul;
+  var kelas = req.body.kelas;
+  var semester = req.body.semester;
+  db.query('select id_matkul from matkul where nama_matkul=? and kelas=?',
+   [namamatkul,kelas], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }
+    if (results.length > 0){
+      res.status(404).json({ error: 'Kelas sudah terdaftar' });
+    }else{
+      db.query('INSERT INTO matkul (nama_matkul,kelas,semester) values (?,?,?)',
+        [namamatkul,kelas,semester], function (error, results, fields) {
+          if (error){
+            console.log(error);
+          }else{
+            res.status(200).json({ OK: 'Kelas '+namamatkul+' '+kelas+' berhasil ditambahkan' });
           }
         });
     }
