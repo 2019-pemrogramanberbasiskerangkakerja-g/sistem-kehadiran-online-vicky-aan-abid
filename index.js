@@ -152,7 +152,7 @@ app.post('/absen', function(req, res) {
 app.get('/rekappersemester/:id_matkul', function (req, res) {
   var idmatkul = req.params.id_matkul;
 
-  db.query('SELECT a.id_matkul,a.pertemuan_ke, b.nama_matkul, b.kelas, a.waktu_mulai, a.waktu_selesai, a.namaruang FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? ORDER BY a.pertemuan_ke',
+  db.query('SELECT a.id_matkul,a.pertemuan_ke, b.nama_matkul, b.kelas, a.jam_mulai, a.jam_selesai, a.namaruang FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? ORDER BY a.pertemuan_ke',
    [idmatkul], function (error, results, fields) {
     if (error){
       console.log(error);
@@ -170,7 +170,7 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
   var idmatkul = req.params.id_matkul;
   var pertemuanke = req.params.pertemuanke;
 
-  db.query('SELECT a.pertemuan_ke, b.nama_matkul, b.kelas, a.waktu_awal, a.waktu_akhir, a.ruangan FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? AND a.pertemuan_ke=? ORDER BY a.pertemuan_ke',
+  db.query('SELECT a.pertemuan_ke, b.nama_matkul, b.kelas, a.jam_awal, a.jam_akhir, a.namaruang FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? AND a.pertemuan_ke=? ORDER BY a.pertemuan_ke',
    [idmatkul,pertemuanke], function (error, results, fields) {
     if (error){
       console.log(error);
@@ -227,7 +227,7 @@ app.post('/tambahmahasiswa', function (req, res) {
   var password = req.body.password;
   var pass  = md5(password);
 
-  db.query('select id_user from user where nomorinduk=? and password=?',
+  db.query('SELECT id_user from user where nomorinduk=? and password=?',
    [nomorinduk,pass], function (error, results, fields) {
     if (error){
       console.log(error);
@@ -281,11 +281,11 @@ app.post('/tambahpeserta', function (req, res) {
     Body: nama_matkul, kelas, semester
 */
 app.post('/tambahmatkul', function (req, res) {
-  console.log(req.body);
   var namamatkul = req.body.nama_matkul;
   var kelas = req.body.kelas;
   var semester = req.body.semester;
-  db.query('select id_matkul from matkul where nama_matkul=? and kelas=?',
+  
+  db.query('SELECT id_matkul from matkul where nama_matkul=? and kelas=?',
    [namamatkul,kelas], function (error, results, fields) {
     if (error){
       console.log(error);
@@ -299,6 +299,38 @@ app.post('/tambahmatkul', function (req, res) {
             console.log(error);
           }else{
             res.status(200).json({ OK: 'Kelas '+namamatkul+' '+kelas+' berhasil ditambahkan' });
+          }
+        });
+    }
+  });
+});
+
+/*
+9. Tambah jadwal pertemuan untuk kuliah
+    POST /tambahjadwal
+    Body: id mata kuliah, pertemuan ke, ruang, jam masuk, jam selesai
+*/
+app.post('/tambahjadwal', function (req, res) {
+  var idmatkul = req.body.id_matkul;
+  var pertemuanke = req.body.pertemuan_ke;
+  var namaruang = req.body.ruang;
+  var jammasuk = req.body.jam_masuk;
+  var jamselesai = req.body.jam_selesai;
+
+  db.query('SELECT a.pertemuan_ke, b.nama_matkul, b.kelas, a.jam_awal, a.jam_akhir, a.namaruang FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? AND a.pertemuan_ke=?',
+   [idmatkul,pertemuanke], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }
+    if (results.length > 0){
+      res.status(404).json({ error: 'Jadwal sudah terdaftar' });
+    }else{
+      db.query('INSERT INTO transaksi_matkul (namaruang,pertemuan_ke,jam_masuk,jam_selesai) values (?,?,?,?)',
+        [namaruang,pertemuanke,jammasuk,jamselesai], function (error, results, fields) {
+          if (error){
+            console.log(error);
+          }else{
+            res.status(200).json({ OK: 'Jadwal '+idmatkul+' '+pertemuanke+' berhasil ditambahkan' });
           }
         });
     }
