@@ -36,6 +36,37 @@ db.connect(function(err) {
   }
 })
 
+//------------REGISTER-------------//
+app.get('/auth/register', function(request, response) {
+  response.render('auth/register');
+});
+
+app.post('/auth/registeruser', function(request, response) {
+  var user = request.body.username;
+  var password = request.body.password;
+  var pass = md5(password);
+  var nama = request.body.nama;
+  var role = request.body.role;
+
+  let sql = "SELECT * FROM user where nomorinduk ='"+user+"'";
+  let query = db.query(sql, (err, results, fields) => {
+    if (results.length > 0) {        
+      request.session.flashdata = "NRP/NIP sudah digunakan";
+      response.redirect('/auth');
+    }else{
+      let sql = "INSERT INTO `user`(`nomorinduk`,`nama_user`,`password`,`role`) values ('"+user+"','"+nama+"','"+pass+"','"+role+"')";
+      db.query(sql, function (err, result) {
+        if(err){
+          console.log(err);
+        }
+      });
+      request.session.flashdata = "Akun "+nama+" berhasil dibuat";
+      response.redirect('/auth');
+    }
+  });
+});
+//-------------------ENDREGISTER--------------------//
+
 //------------LOGIN--------------//
 app.get('/auth', function(request, response) { 
     if(request.session.flashdata){
@@ -48,18 +79,18 @@ app.post('/auth/login', function(request, response) {
     var user = request.body.username;
     var password = request.body.password;
     var pass = md5(password);
-      let sql = "SELECT * FROM user where username ='"+user+"' AND password='"+pass+"' limit 1";
+      let sql = "SELECT * FROM user where nomorinduk ='"+user+"' AND password='"+pass+"' limit 1";
       let query = db.query(sql, (err, results, fields) => {
         if(err){
           console.log(err);
         }
           if (results.length > 0) {   
               request.session.id_user = results[0].id_user;
-              request.session.username = results[0].username;
+              request.session.nomorinduk = results[0].nomorinduk;
               request.session.nama_user = results[0].nama_user;
               request.session.role = results[0].role;
   
-              if(request.session.role == 1){
+              if(request.session.role == 0){
                 response.redirect('/dosen');
               }else{
                   response.redirect('/mahasiswa');
