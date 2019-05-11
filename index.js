@@ -182,10 +182,10 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
 */
 app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
   var nomorinduk = req.params.nrp;
-  var id_matkul = req.params.id_matkul;
+  var idmatkul = req.params.id_matkul;
 
-  db.query('SELECT * FROM user a, transaksi_user b, transaksi_matkul c, matkul d WHERE a.id_user = b.id_user AND b.id_tran_matkul = c.id_tran_matkul AND c.id_matkul = d.id_matkul AND a.nrp_nip=? AND d.id_matkul=?',
-   [nomorinduk,id_matkul], function (error, results, fields) {
+  db.query('SELECT * FROM user a, transaksi_user b, transaksi_matkul c, matkul d WHERE a.id_user = b.id_user AND b.id_transaksi = c.id_transaksi AND c.id_matkul = d.id_matkul AND a.nomorinduk=? AND d.id_matkul=?',
+   [nomorinduk,idmatkul], function (error, results, fields) {
     if (error){
       console.log(error);
     }else{
