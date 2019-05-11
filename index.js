@@ -140,3 +140,20 @@ app.post('/absen/:ruang/:nrp', function(request, response) {
     }
   });
 });
+
+/*
+2. Rekap kuliah per semester
+    GET /rekappersemester/IDMATAKULIAH
+*/
+app.get('/rekappersemester/:id_matkul', function (req, res) {
+  var idmatkul = req.params.id_matkul;
+
+  db.query('SELECT a.id_matkul,a.pertemuan_ke, b.nama_matkul, b.kelas, a.waktu_mulai, a.waktu_selesai, a.namaruang FROM transaksi_matkul a, matkul b WHERE a.id_matkul = b.id_matkul AND b.id_matkul=? ORDER BY a.pertemuan_ke',
+   [idmatkul], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }else{
+      res.status(200).json(results);
+    }
+  });
+});
