@@ -193,3 +193,20 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
     }
   });
 });
+
+/*
+5. Rekap per mahasiswa per semester
+    GET /rekapmahasiswasemester/NRP/SEMESTER
+*/
+app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
+  var nomorinduk = req.params.nrp;
+  var idsemester = req.params.id_semester;
+  db.query('SELECT * FROM user a, transaksi_user b, transaksi_matkul c, matkul d WHERE a.id_user = b.id_user AND b.id_transaksi = c.id_transaksi AND c.id_matkul = d.id_matkul AND a.nomorinduk=? AND d.semester=?',
+   [nomorinduk,idsemester], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }else{
+      res.status(200).json(results);
+    }
+  });
+});
