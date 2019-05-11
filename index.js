@@ -65,7 +65,7 @@ app.post('/auth/registeruser', function(request, response) {
     }
   });
 });
-//-------------------ENDREGISTER--------------------//
+//-------------------END REGISTER--------------------//
 
 //------------LOGIN--------------//
 app.get('/auth', function(request, response) { 
@@ -107,3 +107,36 @@ app.get('/auth/logout', function(request, response) {
     response.redirect('/auth');
 });
 //------------END LOGIN--------------//
+
+//----------API------------//
+/*
+1. Absen
+    POST /absen/
+    Body: ruang, nrp
+*/
+app.post('/absen/:ruang/:nrp', function(request, response) {
+  var namaruang = request.params.ruang;
+  var nomorinduk = request.params.nrp;
+  var status = "2";
+  var date = new Date();
+
+  db.query('SELECT d.nomorinduk, c.namaruang,c.id_transaksi FROM daftar_peserta a, matkul b, transaksi_matkul c, user d WHERE b.id_matkul = a.id_matkul AND d.id_user=a.id_user AND c.id_matkul = b.id_matkul AND d.nomorinduk=? AND c.namaruang=?',
+   [nomorinduk,namaruang], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }
+    if (results.length == 0 ){
+      response.status(404).json({ error: 'Mahasiswa tidak terdaftar' });
+    }else{
+      var idtransaksi = results[0].id_transaksi;
+      db.query('INSERT INTO transaksi_user (id_user,id_transaksi,waktu,status) values (?,?,?,?)',
+       [nomorinduk,idtransaksi,date,status], function (error, results, fields) {
+          if (error){
+            console.log(error);
+          }else{
+            res.status(200).json({ OK: 'Absensi Berhasil!' });
+          }
+        });
+    }
+  });
+});
