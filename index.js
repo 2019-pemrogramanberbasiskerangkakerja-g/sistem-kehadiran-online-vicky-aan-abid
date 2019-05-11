@@ -175,3 +175,21 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
     }
   });
 });
+
+/*
+4. Rekap per mahasiswa per kuliah
+    GET /rekapmahasiswa/NRP/IDMATAKULIAH
+*/
+app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
+  var nomorinduk = req.params.nrp;
+  var id_matkul = req.params.id_matkul;
+
+  db.query('SELECT * FROM user a, transaksi_user b, transaksi_matkul c, matkul d WHERE a.id_user = b.id_user AND b.id_tran_matkul = c.id_tran_matkul AND c.id_matkul = d.id_matkul AND a.nrp_nip=? AND d.id_matkul=?',
+   [nomorinduk,id_matkul], function (error, results, fields) {
+    if (error){
+      console.log(error);
+    }else{
+      res.status(200).json(results);
+    }
+  });
+});
