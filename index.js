@@ -175,7 +175,6 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
     }
   });
 });
-<<<<<<< HEAD
 
 /*
 4. Rekap per mahasiswa per kuliah
@@ -194,5 +193,3 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
     }
   });
 });
-=======
->>>>>>> parent of 727dd65... v0.3.4
