@@ -165,6 +165,10 @@ app.get('/rekappersemester/:id_matkul', function (req, res) {
   });
 });
 
+app.get('/rekappersemester', function(request, response) {
+	response.sendFile(path.join(__dirname + '/rekapsemester.html'));
+});
+
 /*
 3. Rekap kuliah per pertemuan
     GET /rekappertemuan/IDMATAKULIAH/PERTEMUANKE
@@ -243,7 +247,7 @@ app.post('/tambahmahasiswa', function (req, res) {
       res.status(404).json({ error: 'NRP/NIP sudah digunakan' });
     }else{
       db.query('INSERT INTO user (nomorinduk,nama,password,role) values (?,?,?,?)',
-       [nomorinduk,nama,pass,'1'], function (error, results, fields) {
+       [nomorinduk,nama,pass,'Mahasiswa'], function (error, results, fields) {
         if (error){
           console.log(error);
         }
