@@ -38,35 +38,35 @@ API
 -------------
 
 1. Absen
-    `POST /absen`
-    Body: Nama Ruang, NRP
+    <br>`POST /absen`
+    <br>Body: Nama Ruang, NRP
 
 2. Rekap kuliah per semester
-    `GET /rekappersemester/IDMATAKULIAH`
+    <br>`GET /rekappersemester/IDMATAKULIAH`
 
 3. Rekap kuliah per pertemuan
-    `GET /rekappertemuan/IDMATAKULIAH/PERTEMUANKE`
+    <br>`GET /rekappertemuan/IDMATAKULIAH/PERTEMUANKE`
 
 4. Rekap per mahasiswa per kuliah
-    `GET /rekapmahasiswa/NRP/IDMATAKULIAH`
+    <br>`GET /rekapmahasiswa/NRP/IDMATAKULIAH`
 
 5. Rekap per mahasiswa per semester
-    `GET /rekapmahasiswasemester/NRP/SEMESTER`
+    <br>`GET /rekapmahasiswasemester/NRP/SEMESTER`
 
 6. Tambah user mahasiswa baru
-    `POST /tambahmahasiswa`
+    <br>`POST /tambahmahasiswa`
     Body: NRP, Nama, Password
 
 7. Tambah user mahasiswa ke mata kuliah
-    `POST /tambahpeserta`
+    <br>`POST /tambahpeserta`
     Body: ID Mata Kuliah, NRP
 
 8. Tambah mata kuliah baru
-    `POST /tambahmatkul`
+    <br>`POST /tambahmatkul`
     Body: Nama Matkul, Kelas, Semester
 
 9. Tambah jadwal pertemuan untuk kuliah
-    `POST /tambahjadwal`
+    <br>`POST /tambahjadwal`
     Body: ID Mata Kuliah, Pertemuan Ke-, Nama Ruang, Jam Mulai, Jam Selesai
 
 Run
