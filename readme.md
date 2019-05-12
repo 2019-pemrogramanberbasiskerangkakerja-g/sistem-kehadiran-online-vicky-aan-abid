@@ -55,19 +55,19 @@ API
 
 6. Tambah user mahasiswa baru
     <br>`POST /tambahmahasiswa`
-    Body: NRP, Nama, Password
+    <br>Body: NRP, Nama, Password
 
 7. Tambah user mahasiswa ke mata kuliah
     <br>`POST /tambahpeserta`
-    Body: ID Mata Kuliah, NRP
+    <br>Body: ID Mata Kuliah, NRP
 
 8. Tambah mata kuliah baru
     <br>`POST /tambahmatkul`
-    Body: Nama Matkul, Kelas, Semester
+    <br>Body: Nama Matkul, Kelas, Semester
 
 9. Tambah jadwal pertemuan untuk kuliah
     <br>`POST /tambahjadwal`
-    Body: ID Mata Kuliah, Pertemuan Ke-, Nama Ruang, Jam Mulai, Jam Selesai
+    <br>Body: ID Mata Kuliah, Pertemuan Ke-, Nama Ruang, Jam Mulai, Jam Selesai
 
 Run
 -------------
