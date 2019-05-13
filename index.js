@@ -76,7 +76,7 @@ app.get('/auth', function(request, response) {
     if(request.session.flashdata){
       var flash = request.session.flashdata;
     }
-    response.render('auth/login.html',{flash});
+    response.sendFile(path.join(__dirname + '/login.html'));
 });
 
 app.post('/auth/login', function(request, response) {
@@ -97,7 +97,8 @@ app.post('/auth/login', function(request, response) {
               if(request.session.role == 0){
                 response.redirect('/dosen');
               }else{
-                  response.redirect('/mahasiswa');
+                  //response.redirect('/mahasiswa');
+                  response.send('Sukses!');
                 }
               }else{
               request.session.flashdata = "Username atau password salah!";
@@ -176,14 +177,18 @@ app.get('/rekappersemester', function(request, response) {
 app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
   var id_matkul = req.params.id_matkul;
   var pertemuan_ke = req.params.pertemuanke;
-
-  db.query('SELECT a.nama_ruang, b.nomorinduk, b.waktu_absen, b.masuk_or_keluar FROM jadwal a, absen b WHERE a.id_matkul=? AND a.pertemuan_ke=? ORDER BY a.pertemuan_ke',
+  db.query('SELECT id_jadwal FROM jadwal WHERE id_matkul=? AND pertemuan_ke=?',
    [id_matkul,pertemuan_ke], function (error, results, fields) {
-    if (error){
-      console.log(error);
-    }else{
-      res.status(200).json(results);
-    }
+    console.log(results[0].id_jadwal);
+    var id_jadwal = results[0].id_jadwal;
+    db.query('SELECT a.nama_ruang, b.nomorinduk, b.waktu_absen, b.masuk_or_keluar FROM jadwal a, absen b WHERE a.id_jadwal = b.id_jadwal AND b.id_jadwal = ? ORDER BY a.pertemuan_ke',
+    [id_jadwal], function (error, results, fields) {
+      if (error){
+        console.log(error);
+      }else{
+        res.status(200).json(results);
+      }
+    });
   });
 });
 
