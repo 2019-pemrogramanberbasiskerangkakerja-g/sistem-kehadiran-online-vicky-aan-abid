@@ -199,14 +199,18 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
 app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
   var nomorinduk = req.params.nrp;
   var id_matkul = req.params.id_matkul;
-
-  db.query('SELECT a.pertemuan_ke, b.waktu_absen, b.masuk_or_keluar FROM jadwal a, absen b WHERE b.nomorinduk=? AND a.id_matkul=?',
+  db.query('SELECT b.id_jadwal FROM absen a, jadwal b WHERE b.id_matkul=?',
    [nomorinduk,id_matkul], function (error, results, fields) {
-    if (error){
-      console.log(error);
-    }else{
-      res.status(200).json(results);
-    }
+    console.log(results[0].nomorinduk);
+    var nomorinduk2 = results[0].nomorinduk;
+    db.query('SELECT a.pertemuan_ke, b.waktu_absen, b.masuk_or_keluar FROM jadwal a, absen b WHERE b.nomorinduk = ? ORDER BY a.pertemuan_ke',
+    [nomorinduk], function (error, results, fields) {
+      if (error){
+        console.log(error);
+      }else{
+        res.status(200).json(results);
+      }
+    });
   });
 });
 
@@ -218,7 +222,7 @@ app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
   var nomorinduk = req.params.nrp;
   var idsemester = req.params.id_semester;
 
-  db.query('SELECT * FROM user a, transaksi_user b, transaksi_matkul c, matkul d WHERE a.id_user = b.id_user AND b.id_transaksi = c.id_transaksi AND c.id_matkul = d.id_matkul AND a.nomorinduk=? AND d.semester=?',
+  db.query('SELECT a.nama_matkul, b.pertemuan_ke, c.waktu_absen, c.masuk_or_keluar FROM mata_kuliah a, jadwal b, absen c WHERE c.nomorinduk = ? AND a.semester=?',
    [nomorinduk,idsemester], function (error, results, fields) {
     if (error){
       console.log(error);
