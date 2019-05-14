@@ -43,6 +43,7 @@ API
 
 2. Rekap kuliah per semester
     <br>`GET /rekappersemester/IDMATAKULIAH`
+    <br>Contoh tampilan:
 
 | __nama_ruang__ | __pertemuan_ke__ | __jam_mulai__ | __jam_selesai__ |
 |----------------|------------------|---------------|-----------------|
@@ -51,6 +52,7 @@ API
 
 3. Rekap kuliah per pertemuan
     <br>`GET /rekappertemuan/IDMATAKULIAH/PERTEMUANKE`
+    <br>Contoh tampilan:
 
 | __nama_ruang__ | __nomorinduk__ | __waktu_absen__ | __masuk_or_keluar__ |
 |----------------|----------------|-----------------|---------------------|
@@ -58,8 +60,9 @@ API
 | IF-107a        | 05111540000999 | 10.15           | Masuk               |
 | IF-107a        | 05111540000105 | 12.35           | Keluar              |
 
-4. Rekap per mahasiswa per kuliah (BELUM BISA)
+4. (BELUM BISA)Rekap per mahasiswa per kuliah
     <br>`GET /rekapmahasiswa/NRP/IDMATAKULIAH`
+    <br>Contoh tampilan:
 
 | __pertemuan_ke__ | __waktu_absen__ | __masuk_or_keluar__ |
 |------------------|-----------------|---------------------|
@@ -68,8 +71,9 @@ API
 | 2                | 10.13           | Masuk               |
 | 2                | 12.45           | Keluar              |
 
-5. Rekap per mahasiswa per semester (BELUM BISA)
+5. (BELUM BISA)Rekap per mahasiswa per semester
     <br>`GET /rekapmahasiswasemester/NRP/SEMESTER`
+    <br>Contoh tampilan:
 
 | __nama_matkul__ | __pertemuan_ke__ | __waktu_absen__ | __masuk_or_keluar__ |
 |-----------------|------------------|-----------------|---------------------|
