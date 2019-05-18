@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rekap Per Pertemuan</title>
+</head>
+<body>
+    <table class="table table-bordered table-striped" id="rekap_table">
+        <tr>
+        <th>Pertemuan Ke</th>
+        <th>Waktu Absen</th>
+        <th>Masuk atau Keluar</th>
+        </tr>
+    </table>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+ $.getJSON("/rekappertemuan/IFPBKKG/1", function(data){ 
+     var rekap_data = '';
+      $.each(data, function(key, value){
+          rekap_data += '<tr>';
+          rekap_data += '<td>'+value.pertemuan_ke+'</td>';
+          rekap_data += '<td>'+value.waktu_absen+'</td>';
+          rekap_data += '<td>'+value.masuk_or_keluar+'</td>';
+          rekap_data += '</tr>';
+      });
+      $('#rekap_table').append(rekap_data);    
+  });
+ });
+</script>   
+</body>
+</html>
