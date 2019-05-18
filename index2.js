@@ -167,7 +167,7 @@ app.get('/rekappersemester/:id_matkul', function (req, res) {
 });
 
 app.get('/rekappersemester', function(request, response) {
-	response.sendFile(path.join(__dirname + '/rekapsemester.html'));
+	response.sendFile(path.join(__dirname + '/views/rekappersemester.html'));
 });
 
 /*
