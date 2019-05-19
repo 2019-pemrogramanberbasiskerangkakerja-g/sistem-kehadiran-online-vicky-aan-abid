@@ -114,6 +114,7 @@
                         <a href="#tambahmahasiswa" data-toggle="modal" > <br><h4>Tambah Mahasiswa</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
+                      <form method="post" action="/tambahmahasiswa">
                         <div id="tambahmahasiswa" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -125,15 +126,15 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>NRP</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="nrp" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="nama" type="text" class="form-control" required>
                                   </div>  
                                   <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" required>
+                                    <input name="password" type="password" class="form-control" required>
                                   </div>                                    
                                         
                                 </div>
@@ -145,6 +146,7 @@
                             </div>
                           </div>
                         </div>
+                      </form>
                         <!-- Edit Modal HTML -->    
                     </div>
 
@@ -154,6 +156,7 @@
                         <a href="#tambahpeserta"  data-toggle="modal"><br> <h4>Tambah Mhs ke Matkul</h4></a>
                       </div>
                     <!-- Edit Modal HTML -->
+                    <form method="post" action="tambahpeserta">
                         <div id="tambahpeserta" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -165,11 +168,11 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>Kode Mata Kuliah</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="id_matkul" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>NRP</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="nrp" type="text" class="form-control" required>
                                   </div>                                    
                                         
                                 </div>
@@ -181,6 +184,7 @@
                             </div>
                           </div>
                         </div>
+                      </form>
                         <!-- Edit Modal HTML --> 
                     </div>
 
@@ -190,6 +194,7 @@
                         <a href="#tambahmatkul" data-toggle="modal"><br><h4>Tambah Mata Kuliah</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
+                      <form method="post" action="tambahmatkul">
                         <div id="tambahmatkul" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -201,15 +206,15 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>Nama Mata Kuliah</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="nama_matkul" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Kelas</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="kelas" type="text" class="form-control" required>
                                   </div>  
                                   <div class="form-group">
                                     <label>Semester</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="semester" type="text" class="form-control" required>
                                   </div>                                    
                                         
                                 </div>
@@ -221,6 +226,7 @@
                             </div>
                           </div>
                         </div>
+                      </form>
                         <!-- Edit Modal HTML -->   
                     </div>
                   
@@ -230,6 +236,7 @@
                         <a href="#tambahjadwal" data-toggle="modal" > <h4>Tambah Jadwal Pertemuan</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
+                      <form method="post" action="tambahjadwal">
                         <div id="tambahjadwal" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -241,23 +248,23 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>Kode Mata Kuliah</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="id_matkul" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Pertemuan Ke</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="pertemuan_ke" type="text" class="form-control" required>
                                   </div>  
                                   <div class="form-group">
                                     <label>Nama Ruang</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="nama_ruang" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Jam Masuk</label>
-                                    <input type="time" name="jam_masuk" class="form-control" required>
+                                    <input name="jam_masuk" type="time" name="jam_masuk" class="form-control" required>
                                   </div> 
                                   <div class="form-group">
                                     <label>Jam Selesai</label>
-                                    <input type="time" name="jam_selesai" class="form-control" required>
+                                    <input name="jam_selesai" type="time" name="jam_selesai" class="form-control" required>
                                   </div>                                     
                                         
                                 </div>
@@ -269,6 +276,7 @@
                             </div>
                           </div>
                         </div>
+                      </form>
                         <!-- Edit Modal HTML -->   
                     </div>
 

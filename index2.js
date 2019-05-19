@@ -288,7 +288,7 @@ app.post('/tambahmahasiswa', function (req, res) {
       console.log(error);
     }
     if (results.length > 0){
-      res.status(404).json({ error: 'NRP/NIP sudah digunakan' });
+      res.status(404).json({ error: 'NRP sudah digunakan' });
     }else{
       db.query('INSERT INTO user (nomorinduk,nama,password,role) values (?,?,?,?)',
        [nomorinduk,nama,pass,'1'], function (error, results, fields) {
