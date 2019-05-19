@@ -40,6 +40,10 @@ app.listen(3000, function() {
   console.log('Listening to port: 3000');
 });
 
+app.get('/', function(request, response) {
+  response.redirect('/auth');
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //------------REGISTER-------------//
@@ -92,8 +96,8 @@ app.get('/auth', function(request, response) {
 
 app.post('/auth/login', function(request, response) {
     var user = request.body.username;
-    var password = request.body.password;
-    var pass = md5(password);
+    var pass = request.body.password;
+    //var pass = md5(password);
       let sql = "SELECT * FROM user where nomorinduk ='"+user+"' AND password='"+pass+"' limit 1";
       let query = db.query(sql, (err, results, fields) => {
         if(err){
@@ -108,8 +112,7 @@ app.post('/auth/login', function(request, response) {
               if(request.session.role == 0){
                 response.redirect('/dosen');
               }else{
-                  //response.redirect('/mahasiswa');
-                  response.send('Sukses!');
+                  response.redirect('/mahasiswa');
                 }
               }else{
               request.session.flashdata = "Username atau password salah!";
@@ -269,7 +272,7 @@ app.post('/tambahmahasiswa', function (req, res) {
       res.status(404).json({ error: 'NRP/NIP sudah digunakan' });
     }else{
       db.query('INSERT INTO user (nomorinduk,nama,password,role) values (?,?,?,?)',
-       [nomorinduk,nama,pass,'Mahasiswa'], function (error, results, fields) {
+       [nomorinduk,nama,pass,'1'], function (error, results, fields) {
         if (error){
           console.log(error);
         }
