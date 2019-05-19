@@ -47,31 +47,30 @@ app.get('/', function(request, response) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 //------------REGISTER-------------//
-app.get('/auth/register', function(request, response) {
-  response.render('auth/register');
+app.get('/register', function(request, response) {
+  response.sendFile(path.join(__dirname + '/views/register.html'));
 });
 
-app.post('/auth/registeruser', function(request, response) {
-  var user = request.body.username;
+app.post('/auth/register', function(request, response) {
+  var nama = request.body.nama;
+  var nip = request.body.username;
   var password = request.body.password;
   var pass = md5(password);
-  var nama = request.body.nama;
-  var role = request.body.role;
 
-  let sql = "SELECT * FROM user where nomorinduk ='"+user+"'";
+  let sql = "SELECT * FROM user where nomorinduk ='"+nip+"'";
   let query = db.query(sql, (err, results, fields) => {
     if (results.length > 0) {        
-      request.session.flashdata = "NRP/NIP sudah digunakan";
-      response.redirect('/auth');
+      request.session.flashdata = "NIP sudah digunakan";
+      response.redirect('/register');
     }else{
-      let sql = "INSERT INTO `user`(`nomorinduk`,`nama_user`,`password`,`role`) values ('"+user+"','"+nama+"','"+pass+"','"+role+"')";
+      let sql = "INSERT INTO `user`(`nomorinduk`,`nama`,`password`,`role`) values ('"+nip+"','"+nama+"','"+pass+"','0')";
       db.query(sql, function (err, result) {
         if(err){
           console.log(err);
         }
       });
       request.session.flashdata = "Akun "+nama+" berhasil dibuat";
-      response.redirect('/auth');
+      response.redirect('/');
     }
   });
 });
@@ -86,6 +85,15 @@ app.get('/dosen', function(request, response) {
     response.sendFile(path.join(__dirname + '/views/dashboard.html'));
 });
 
+//-------------------DASHBOARD DOSEN--------------------//
+
+app.get('/mahasiswa', function(request, response) { 
+  if(request.session.flashdata){
+    var flash = request.session.flashdata;
+  }
+  response.sendFile(path.join(__dirname + '/views/dashboardmhs.html'));
+});
+
 //------------LOGIN--------------//
 app.get('/auth', function(request, response) { 
     if(request.session.flashdata){
@@ -96,8 +104,8 @@ app.get('/auth', function(request, response) {
 
 app.post('/auth/login', function(request, response) {
     var user = request.body.username;
-    var pass = request.body.password;
-    //var pass = md5(password);
+    var password = request.body.password;
+    var pass = md5(password);
       let sql = "SELECT * FROM user where nomorinduk ='"+user+"' AND password='"+pass+"' limit 1";
       let query = db.query(sql, (err, results, fields) => {
         if(err){
@@ -218,9 +226,8 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
   var nomorinduk = req.params.nrp;
   var id_matkul = req.params.id_matkul;
   db.query('SELECT b.id_jadwal FROM absen a, jadwal b WHERE b.id_matkul=?',
-   [nomorinduk,id_matkul], function (error, results, fields) {
-    console.log(results[0].nomorinduk);
-    var nomorinduk2 = results[0].nomorinduk;
+   [id_matkul], function (error, results, fields) {
+    var id_matkul2 = results[0].id_matkul;
     db.query('SELECT a.pertemuan_ke, b.waktu_absen, b.masuk_or_keluar FROM jadwal a, absen b WHERE b.nomorinduk = ? ORDER BY a.pertemuan_ke',
     [nomorinduk], function (error, results, fields) {
       if (error){
@@ -252,6 +259,10 @@ app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
       res.status(200).json(results);
     }
   });
+});
+
+app.get('/rekapmahasiswasemester', function(request, response) {
+	response.sendFile(path.join(__dirname + '/views/rekapmahasiswasemester.html'));
 });
 
 /*
