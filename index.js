@@ -40,36 +40,59 @@ app.listen(3000, function() {
   console.log('Listening to port: 3000');
 });
 
-//------------REGISTER-------------//
-app.get('/auth/register', function(request, response) {
-  response.render('auth/register');
+app.get('/', function(request, response) {
+  response.redirect('/auth');
 });
 
-app.post('/auth/registeruser', function(request, response) {
-  var user = request.body.username;
+app.use(express.static(path.join(__dirname, 'public')));
+
+//------------REGISTER-------------//
+app.get('/register', function(request, response) {
+  response.sendFile(path.join(__dirname + '/views/register.html'));
+});
+
+app.post('/auth/register', function(request, response) {
+  var nama = request.body.nama;
+  var nip = request.body.username;
   var password = request.body.password;
   var pass = md5(password);
-  var nama = request.body.nama;
-  var role = request.body.role;
 
-  let sql = "SELECT * FROM user where nomorinduk ='"+user+"'";
+  let sql = "SELECT * FROM user where nomorinduk ='"+nip+"'";
   let query = db.query(sql, (err, results, fields) => {
-    if (results.length > 0) {         
-      request.session.flashdata = "NRP/NIP sudah digunakan";
-      response.redirect('/auth');
+    if (results.length > 0) {        
+      request.session.flashdata = "NIP sudah digunakan";
+      response.redirect('/register');
     }else{
-      let sql = "INSERT INTO `user`(`nomorinduk`,`nama_user`,`password`,`role`) values ('"+user+"','"+nama+"','"+pass+"','"+role+"')";
+      let sql = "INSERT INTO `user`(`nomorinduk`,`nama`,`password`,`role`) values ('"+nip+"','"+nama+"','"+pass+"','0')";
       db.query(sql, function (err, result) {
         if(err){
           console.log(err);
         }
       });
       request.session.flashdata = "Akun "+nama+" berhasil dibuat";
-      response.redirect('/auth');
+      response.redirect('/');
     }
   });
 });
 //-------------------END REGISTER--------------------//
+
+//-------------------DASHBOARD DOSEN--------------------//
+
+app.get('/dosen', function(request, response) { 
+    if(request.session.flashdata){
+      var flash = request.session.flashdata;
+    }
+    response.sendFile(path.join(__dirname + '/views/dashboard.html'));
+});
+
+//-------------------DASHBOARD DOSEN--------------------//
+
+app.get('/mahasiswa', function(request, response) { 
+  if(request.session.flashdata){
+    var flash = request.session.flashdata;
+  }
+  response.sendFile(path.join(__dirname + '/views/dashboardmhs.html'));
+});
 
 //------------LOGIN--------------//
 app.get('/auth', function(request, response) { 
@@ -77,7 +100,6 @@ app.get('/auth', function(request, response) {
       var flash = request.session.flashdata;
     }
     response.sendFile(path.join(__dirname + '/views/login.html'));
-  
 });
 
 app.post('/auth/login', function(request, response) {
@@ -98,8 +120,7 @@ app.post('/auth/login', function(request, response) {
               if(request.session.role == 0){
                 response.redirect('/dosen');
               }else{
-                  //response.redirect('/mahasiswa');
-                  response.send('Sukses!');
+                  response.redirect('/mahasiswa');
                 }
               }else{
               request.session.flashdata = "Username atau password salah!";
@@ -120,9 +141,6 @@ app.get('/auth/logout', function(request, response) {
     POST /absen
     Body: ruang, nrp
 */
-app.get('/absen', function(request, response) {
-	response.sendFile(path.join(__dirname + '/views/absen.html'));
-});
 
 app.post('/absen', function(req, res) {
   var nama_ruang = req.body.ruang;
@@ -168,7 +186,7 @@ app.get('/rekappersemester/:id_matkul', function (req, res) {
 });
 
 app.get('/rekappersemester', function(request, response) {
-	response.sendFile(path.join(__dirname + '/views/rekapsemester.html'));
+	response.sendFile(path.join(__dirname + '/views/rekappersemester.html'));
 });
 
 /*
@@ -193,6 +211,10 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
   });
 });
 
+app.get('/rekappertemuan', function(request, response) {
+	response.sendFile(path.join(__dirname + '/views/rekappertemuan.html'));
+});
+
 /*
 4. Rekap per mahasiswa per kuliah
     GET /rekapmahasiswa/NRP/IDMATAKULIAH
@@ -201,9 +223,8 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
   var nomorinduk = req.params.nrp;
   var id_matkul = req.params.id_matkul;
   db.query('SELECT b.id_jadwal FROM absen a, jadwal b WHERE b.id_matkul=?',
-   [nomorinduk,id_matkul], function (error, results, fields) {
-    console.log(results[0].nomorinduk);
-    var nomorinduk2 = results[0].nomorinduk;
+   [id_matkul], function (error, results, fields) {
+    var id_matkul2 = results[0].id_matkul;
     db.query('SELECT a.pertemuan_ke, b.waktu_absen, b.masuk_or_keluar FROM jadwal a, absen b WHERE b.nomorinduk = ? ORDER BY a.pertemuan_ke',
     [nomorinduk], function (error, results, fields) {
       if (error){
@@ -213,6 +234,10 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
       }
     });
   });
+});
+
+app.get('/rekapmahasiswa', function(request, response) {
+	response.sendFile(path.join(__dirname + '/views/rekapmahasiswa.html'));
 });
 
 /*
@@ -233,14 +258,15 @@ app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
   });
 });
 
+app.get('/rekapmahasiswasemester', function(request, response) {
+	response.sendFile(path.join(__dirname + '/views/rekapmahasiswasemester.html'));
+});
+
 /*
 6. Tambah user mahasiswa baru
     POST /tambahmahasiswa
     Body: nrp, nama, password
 */
-app.get('/tambahmahasiswa', function(request, response) {
-	response.sendFile(path.join(__dirname + '/views/tambahmahasiswa.html'));
-});
 
 app.post('/tambahmahasiswa', function (req, res) {
   var nomorinduk = req.body.nrp;
@@ -254,10 +280,10 @@ app.post('/tambahmahasiswa', function (req, res) {
       console.log(error);
     }
     if (results.length > 0){
-      res.status(404).json({ error: 'NRP/NIP sudah digunakan' });
+      res.status(404).json({ error: 'NRP sudah digunakan' });
     }else{
       db.query('INSERT INTO user (nomorinduk,nama,password,role) values (?,?,?,?)',
-       [nomorinduk,nama,pass,'Mahasiswa'], function (error, results, fields) {
+       [nomorinduk,nama,pass,'1'], function (error, results, fields) {
         if (error){
           console.log(error);
         }
@@ -272,9 +298,6 @@ app.post('/tambahmahasiswa', function (req, res) {
     POST /tambahpeserta
     Body: idmatkul, nrp
 */
-app.get('/tambahpeserta', function(request, response) {
-	response.sendFile(path.join(__dirname + '/views/tambahpeserta.html'));
-});
 
 app.post('/tambahpeserta', function (req, res) {
   var id_matkul = req.body.id_matkul;
@@ -312,9 +335,6 @@ app.post('/tambahpeserta', function (req, res) {
     POST /tambahmatkul
     Body: nama_matkul, kelas, semester
 */
-app.get('/tambahmatkul', function(request, response) {
-	response.sendFile(path.join(__dirname + '/views/tambahmatkul.html'));
-});
 
 app.post('/tambahmatkul', function (req, res) {
   var nama_matkul = req.body.nama_matkul;
@@ -346,9 +366,6 @@ app.post('/tambahmatkul', function (req, res) {
     POST /tambahjadwal
     Body: id mata kuliah, pertemuan ke, ruang, jam masuk, jam selesai
 */
-app.get('/tambahjadwal', function(request, response) {
-	response.sendFile(path.join(__dirname + '/views/tambahjadwal.html'));
-});
 
 app.post('/tambahjadwal', function (req, res) {
   var id_matkul = req.body.id_matkul;
