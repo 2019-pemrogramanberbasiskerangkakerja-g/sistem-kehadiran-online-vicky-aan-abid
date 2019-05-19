@@ -99,8 +99,37 @@
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">                          
                         <i class="fas fa-user-edit fa-5x"></i>
-                        <a href="absen" ><br> <h4>Absen Disini !</h4></a>
+                        <a href="#absen" data-toggle="modal"><br> <h4>Absen Disini !</h4></a>
                       </div>
+                      <!-- Edit Modal HTML -->
+                        <div id="absen" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form>
+                                <div class="modal-header">            
+                                  <h4 class="modal-title">Isi Form Dibawah</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">          
+                                  <div class="form-group">
+                                    <label>Nama Ruang</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>NRP</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>                                    
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                  <input type="submit" class="btn btn-success" value="Submit">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Edit Modal HTML --> 
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">

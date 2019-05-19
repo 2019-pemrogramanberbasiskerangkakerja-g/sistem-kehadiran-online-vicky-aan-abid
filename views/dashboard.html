@@ -111,29 +111,165 @@
                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">    
                         <i class="fa fa-user-plus fa-5x"></i>
-                        <a href="tambahmahasiswa.html" > <br><h4>Tambah Mahasiswa</h4></a>
-                      </div> 
+                        <a href="#tambahmahasiswa" data-toggle="modal" > <br><h4>Tambah Mahasiswa</h4></a>
+                      </div>
+                      <!-- Edit Modal HTML -->
+                        <div id="tambahmahasiswa" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form>
+                                <div class="modal-header">            
+                                  <h4 class="modal-title">Tambah Mahasiswa</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">          
+                                  <div class="form-group">
+                                    <label>NRP</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>  
+                                  <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" required>
+                                  </div>                                    
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                  <input type="submit" class="btn btn-success" value="Submit">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Edit Modal HTML -->    
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">                          
                         <i class="fas fa-user-friends fa-5x"></i>
-                        <a href="tambahpeserta.html" ><br> <h4>Tambah Mhs ke Matkul</h4></a>
+                        <a href="#tambahpeserta"  data-toggle="modal"><br> <h4>Tambah Mhs ke Matkul</h4></a>
                       </div>
+                    <!-- Edit Modal HTML -->
+                        <div id="tambahpeserta" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form>
+                                <div class="modal-header">            
+                                  <h4 class="modal-title">Tambah Peserta</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">          
+                                  <div class="form-group">
+                                    <label>Kode Mata Kuliah</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>NRP</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>                                    
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                  <input type="submit" class="btn btn-success" value="Submit">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Edit Modal HTML --> 
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">                         
                         <i class="fas fa-calendar-plus fa-5x"></i>
-                        <a href="tambahmatkul.html"><br><h4>Tambah Mata Kuliah</h4></a>
-                      </div>   
+                        <a href="#tambahmatkul" data-toggle="modal"><br><h4>Tambah Mata Kuliah</h4></a>
+                      </div>
+                      <!-- Edit Modal HTML -->
+                        <div id="tambahmatkul" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form>
+                                <div class="modal-header">            
+                                  <h4 class="modal-title">Tambah Mata Kuliah</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">          
+                                  <div class="form-group">
+                                    <label>Nama Mata Kuliah</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Kelas</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>  
+                                  <div class="form-group">
+                                    <label>Semester</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>                                    
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                  <input type="submit" class="btn btn-success" value="Submit">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Edit Modal HTML -->   
                     </div>
                   
                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">                         
                         <i class="fas fa-clock fa-5x"></i>
-                        <a href="tambahjadwal.html" > <h4>Tambah Jadwal Pertemuan</h4></a>
-                      </div>   
+                        <a href="#tambahjadwal" data-toggle="modal" > <h4>Tambah Jadwal Pertemuan</h4></a>
+                      </div>
+                      <!-- Edit Modal HTML -->
+                        <div id="tambahjadwal" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form>
+                                <div class="modal-header">            
+                                  <h4 class="modal-title">Tambah Jadwal Pertemuan</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">          
+                                  <div class="form-group">
+                                    <label>Kode Mata Kuliah</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Pertemuan Ke</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>  
+                                  <div class="form-group">
+                                    <label>Nama Ruang</label>
+                                    <input type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Jam Masuk</label>
+                                    <input type="time" name="jam_masuk" class="form-control" required>
+                                  </div> 
+                                  <div class="form-group">
+                                    <label>Jam Selesai</label>
+                                    <input type="time" name="jam_selesai" class="form-control" required>
+                                  </div>                                     
+                                        
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                  <input type="submit" class="btn btn-success" value="Submit">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Edit Modal HTML -->   
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
