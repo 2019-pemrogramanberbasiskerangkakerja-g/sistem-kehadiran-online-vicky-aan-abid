@@ -17,7 +17,10 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
- $.getJSON("/rekappertemuan/IFPBKKG/1", function(data){ 
+ const urlParams = new URLSearchParams(window.location.search);
+ const nrp = urlParams.get('nrp');
+ const idmatkul = urlParams.get('idmatkul');
+ $.getJSON('/rekapmahasiswa/'+nrp+'/'+idmatkul, function(data){ 
      var rekap_data = '';
       $.each(data, function(key, value){
           rekap_data += '<tr>';

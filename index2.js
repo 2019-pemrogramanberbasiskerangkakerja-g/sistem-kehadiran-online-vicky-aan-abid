@@ -206,6 +206,10 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
   });
 });
 
+app.get('/rekappertemuan', function(request, response) {
+	response.sendFile(path.join(__dirname + '/views/rekappertemuan.html'));
+});
+
 /*
 4. Rekap per mahasiswa per kuliah
     GET /rekapmahasiswa/NRP/IDMATAKULIAH
@@ -226,6 +230,10 @@ app.get('/rekapmahasiswa/:nrp/:id_matkul', function (req, res) {
       }
     });
   });
+});
+
+app.get('/rekapmahasiswa', function(request, response) {
+	response.sendFile(path.join(__dirname + '/views/rekapmahasiswa.html'));
 });
 
 /*
