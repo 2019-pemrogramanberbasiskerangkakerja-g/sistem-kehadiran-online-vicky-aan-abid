@@ -54,7 +54,7 @@ app.post('/auth/registeruser', function(request, response) {
 
   let sql = "SELECT * FROM user where nomorinduk ='"+user+"'";
   let query = db.query(sql, (err, results, fields) => {
-    if (results.length > 0) {        
+    if (results.length > 0) {         
       request.session.flashdata = "NRP/NIP sudah digunakan";
       response.redirect('/auth');
     }else{
@@ -76,7 +76,8 @@ app.get('/auth', function(request, response) {
     if(request.session.flashdata){
       var flash = request.session.flashdata;
     }
-    response.sendFile(path.join(__dirname + '/login.html'));
+    response.sendFile(path.join(__dirname + '/views/login.html'));
+  
 });
 
 app.post('/auth/login', function(request, response) {
@@ -120,7 +121,7 @@ app.get('/auth/logout', function(request, response) {
     Body: ruang, nrp
 */
 app.get('/absen', function(request, response) {
-	response.sendFile(path.join(__dirname + '/absen.html'));
+	response.sendFile(path.join(__dirname + '/views/absen.html'));
 });
 
 app.post('/absen', function(req, res) {
@@ -167,7 +168,7 @@ app.get('/rekappersemester/:id_matkul', function (req, res) {
 });
 
 app.get('/rekappersemester', function(request, response) {
-	response.sendFile(path.join(__dirname + '/rekapsemester.html'));
+	response.sendFile(path.join(__dirname + '/views/rekapsemester.html'));
 });
 
 /*
@@ -238,7 +239,7 @@ app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
     Body: nrp, nama, password
 */
 app.get('/tambahmahasiswa', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahmahasiswa.html'));
+	response.sendFile(path.join(__dirname + '/views/tambahmahasiswa.html'));
 });
 
 app.post('/tambahmahasiswa', function (req, res) {
@@ -272,7 +273,7 @@ app.post('/tambahmahasiswa', function (req, res) {
     Body: idmatkul, nrp
 */
 app.get('/tambahpeserta', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahpeserta.html'));
+	response.sendFile(path.join(__dirname + '/views/tambahpeserta.html'));
 });
 
 app.post('/tambahpeserta', function (req, res) {
@@ -312,7 +313,7 @@ app.post('/tambahpeserta', function (req, res) {
     Body: nama_matkul, kelas, semester
 */
 app.get('/tambahmatkul', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahmatkul.html'));
+	response.sendFile(path.join(__dirname + '/views/tambahmatkul.html'));
 });
 
 app.post('/tambahmatkul', function (req, res) {
@@ -346,7 +347,7 @@ app.post('/tambahmatkul', function (req, res) {
     Body: id mata kuliah, pertemuan ke, ruang, jam masuk, jam selesai
 */
 app.get('/tambahjadwal', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahjadwal.html'));
+	response.sendFile(path.join(__dirname + '/views/tambahjadwal.html'));
 });
 
 app.post('/tambahjadwal', function (req, res) {

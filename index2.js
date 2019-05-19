@@ -40,6 +40,8 @@ app.listen(3000, function() {
   console.log('Listening to port: 3000');
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 //------------REGISTER-------------//
 app.get('/auth/register', function(request, response) {
   response.render('auth/register');
@@ -71,12 +73,21 @@ app.post('/auth/registeruser', function(request, response) {
 });
 //-------------------END REGISTER--------------------//
 
+//-------------------DASHBOARD DOSEN--------------------//
+
+app.get('/dosen', function(request, response) { 
+    if(request.session.flashdata){
+      var flash = request.session.flashdata;
+    }
+    response.sendFile(path.join(__dirname + '/views/dashboard.html'));
+});
+
 //------------LOGIN--------------//
 app.get('/auth', function(request, response) { 
     if(request.session.flashdata){
       var flash = request.session.flashdata;
     }
-    response.sendFile(path.join(__dirname + '/login.html'));
+    response.sendFile(path.join(__dirname + '/views/login.html'));
 });
 
 app.post('/auth/login', function(request, response) {
@@ -238,7 +249,9 @@ app.get('/rekapmahasiswasemester/:nrp/:id_semester', function (req, res) {
     Body: nrp, nama, password
 */
 app.get('/tambahmahasiswa', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahmahasiswa.html'));
+
+
+	response.sendFile(path.join(__dirname + '/views/tambahmahasiswa.html'));
 });
 
 app.post('/tambahmahasiswa', function (req, res) {
