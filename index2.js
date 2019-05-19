@@ -141,9 +141,6 @@ app.get('/auth/logout', function(request, response) {
     POST /absen
     Body: ruang, nrp
 */
-app.get('/absen', function(request, response) {
-	response.sendFile(path.join(__dirname + '/absen.html'));
-});
 
 app.post('/absen', function(req, res) {
   var nama_ruang = req.body.ruang;
@@ -270,11 +267,6 @@ app.get('/rekapmahasiswasemester', function(request, response) {
     POST /tambahmahasiswa
     Body: nrp, nama, password
 */
-app.get('/tambahmahasiswa', function(request, response) {
-
-
-	response.sendFile(path.join(__dirname + '/views/tambahmahasiswa.html'));
-});
 
 app.post('/tambahmahasiswa', function (req, res) {
   var nomorinduk = req.body.nrp;
@@ -306,9 +298,6 @@ app.post('/tambahmahasiswa', function (req, res) {
     POST /tambahpeserta
     Body: idmatkul, nrp
 */
-app.get('/tambahpeserta', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahpeserta.html'));
-});
 
 app.post('/tambahpeserta', function (req, res) {
   var id_matkul = req.body.id_matkul;
@@ -346,9 +335,6 @@ app.post('/tambahpeserta', function (req, res) {
     POST /tambahmatkul
     Body: nama_matkul, kelas, semester
 */
-app.get('/tambahmatkul', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahmatkul.html'));
-});
 
 app.post('/tambahmatkul', function (req, res) {
   var nama_matkul = req.body.nama_matkul;
@@ -380,9 +366,6 @@ app.post('/tambahmatkul', function (req, res) {
     POST /tambahjadwal
     Body: id mata kuliah, pertemuan ke, ruang, jam masuk, jam selesai
 */
-app.get('/tambahjadwal', function(request, response) {
-	response.sendFile(path.join(__dirname + '/tambahjadwal.html'));
-});
 
 app.post('/tambahjadwal', function (req, res) {
   var id_matkul = req.body.id_matkul;
