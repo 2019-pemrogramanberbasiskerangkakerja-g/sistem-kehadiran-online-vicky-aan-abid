@@ -18,7 +18,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
- $.getJSON("/rekappersemester/IFPBKKG", function(data){ 
+ const urlParams = new URLSearchParams(window.location.search);
+ const idmatkul = urlParams.get('idmatkul');
+ $.getJSON("/rekappersemester/"+idmatkul, function(data){ 
      var rekap_data = '';
       $.each(data, function(key, value){
           rekap_data += '<tr>';

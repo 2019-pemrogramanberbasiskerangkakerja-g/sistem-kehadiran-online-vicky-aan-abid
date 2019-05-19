@@ -278,6 +278,7 @@
                         <a href="#rekapkuliahsemester" data-toggle="modal" > <h4>Rekap Kuliah per Semester</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
+                      <form method="get" action="rekappersemester">
                         <div id="rekapkuliahsemester" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -289,7 +290,7 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>Kode Mata Kuliah</label>
-                                    <input type="text" class="form-control" required>
+                                    <input name="idmatkul" type="text" class="form-control" required>
                                   </div>                                  
                                         
                                 </div>
@@ -301,6 +302,7 @@
                             </div>
                           </div>
                         </div>
+                      </form>
                         <!-- Edit Modal HTML -->   
                     </div>
 
