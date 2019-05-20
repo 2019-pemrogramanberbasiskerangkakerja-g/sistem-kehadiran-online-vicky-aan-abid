@@ -40,6 +40,11 @@ REGISTER
 <br>URL : `/register`
 <br>Register hanya dilakukan untuk mendaftarkan user Dosen, penambahan user mahasiswa dilakukan melalui dashboard dosen
 
+LOGIN
+-------------
+<br>URL : `/auth`
+<br>Username:dosen Password:dosen
+
 
 API
 -------------
@@ -67,7 +72,7 @@ API
 | IF-107a        | 05111540000999 | 10.15           | Masuk               |
 | IF-107a        | 05111540000105 | 12.35           | Keluar              |
 
-4. (BELUM BISA)Rekap per mahasiswa per kuliah
+4.  Rekap per mahasiswa per kuliah
     <br>`GET /rekapmahasiswa/NRP/IDMATAKULIAH`
     <br>Contoh tampilan:
 
@@ -78,7 +83,7 @@ API
 | 2                | 10.13           | Masuk               |
 | 2                | 12.45           | Keluar              |
 
-5. (BELUM BISA)Rekap per mahasiswa per semester
+5. `Rekap per mahasiswa per semester
     <br>`GET /rekapmahasiswasemester/NRP/SEMESTER`
     <br>Contoh tampilan:
 
