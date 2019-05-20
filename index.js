@@ -69,7 +69,7 @@ app.post('/auth/register', function(request, response) {
           console.log(err);
         }
       });
-      request.session.flashdata = "Akun "+nama+" berhasil dibuat";
+      res.status(200).json({ OK: 'Akun '+nama+' berhasil dibuat' });
       response.redirect('/');
     }
   });
@@ -85,7 +85,7 @@ app.get('/dosen', function(request, response) {
     response.sendFile(path.join(__dirname + '/views/dashboard.html'));
 });
 
-//-------------------DASHBOARD DOSEN--------------------//
+//-------------------DASHBOARD MAHASISWA--------------------//
 
 app.get('/mahasiswa', function(request, response) { 
   if(request.session.flashdata){
@@ -118,8 +118,10 @@ app.post('/auth/login', function(request, response) {
               request.session.role = results[0].role;
   
               if(request.session.role == 0){
+                res.status(200).json({ OK: 'Akun '+request.session.nomorinduk+' berhasil login' });
                 response.redirect('/dosen');
               }else{
+                  res.status(200).json({ OK: 'Akun '+request.session.nomorinduk+' berhasil login' });
                   response.redirect('/mahasiswa');
                 }
               }else{
