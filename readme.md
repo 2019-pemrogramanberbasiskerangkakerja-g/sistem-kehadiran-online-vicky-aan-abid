@@ -34,6 +34,13 @@ Requirement
 
     `npm install md5`
     
+REGISTER
+-------------
+
+<br>URL : `/register`
+<br>Register hanya dilakukan untuk mendaftarkan user Dosen, penambahan user mahasiswa dilakukan melalui dashboard dosen
+
+
 API
 -------------
 
