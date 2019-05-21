@@ -24,9 +24,9 @@ app.use(express.static(__dirname + '/assets'));
 
 var db = mysql.createConnection({
     host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'absenonline'
+    user     : 'pbkk_absenonline',
+    password : 'pbkk_absenonline',
+    database : 'pbkkwebi_absenonline'
 });
 
 db.connect(function(err) {
