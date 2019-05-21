@@ -359,9 +359,7 @@ app.post('/tambahmatkul', function (req, res) {
           if (error){
             console.log(error);
           }else{
-          res.write( 
-            "<script type='text/javascript'>alert('Berhasil menambahkan mata kuliah')</script>" +
-            "<script type='text/javascript'>window.location = '/dosen'</script>");
+          res.status(200).json({ OK: 'Mata Kuliah '+nama_matkul+' Kelas '+kelas_matkul+' berhasil ditambahkan' });
           }
         });
     }
