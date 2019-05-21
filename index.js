@@ -125,8 +125,6 @@ app.post('/auth/login', function(request, response) {
                 response.redirect('/mahasiswa');
                 }
               }else{
-              request.session.flashdata = "Username atau password salah!";
-              response.write( 
             request.session.flashdata = "Username atau password salah!";
               response.redirect('/auth');
             }
