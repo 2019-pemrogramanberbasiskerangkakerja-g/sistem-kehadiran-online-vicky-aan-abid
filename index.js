@@ -120,19 +120,15 @@ app.post('/auth/login', function(request, response) {
               request.session.role = results[0].role;
   
               if(request.session.role == 0) {
-                response.write( 
-            "<script type='text/javascript'>alert('Berhasil login Dosen')</script>" +
-            "<script type='text/javascript'>window.location = '/dosen'</script>");
+                response.redirect('/dosen');
               }else{
-                  response.write( 
-            "<script type='text/javascript'>alert('Berhasil login Mahasiswa')</script>" +
-            "<script type='text/javascript'>window.location = '/mahasiswa'</script>");
+                response.redirect('/mahasiswa');
                 }
               }else{
               request.session.flashdata = "Username atau password salah!";
               response.write( 
-            "<script type='text/javascript'>alert('Username atau password salah!')</script>" +
-            "<script type='text/javascript'>window.location = '/auth'</script>");
+            request.session.flashdata = "Username atau password salah!";
+              response.redirect('/auth');
             }
           });
 });
