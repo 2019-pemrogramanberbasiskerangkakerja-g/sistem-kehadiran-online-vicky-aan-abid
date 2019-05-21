@@ -10,11 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "alert-node": "^1.2.4",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
+    "js-alert": "^1.0.4",
     "md5": "^2.2.1",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "popups": "^1.1.3"
   }
 }

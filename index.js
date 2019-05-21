@@ -1,3 +1,5 @@
+//import alert from 'alert-node';
+
 var http = require("http");
 var express = require('express');
 var path = require('path');
@@ -6,7 +8,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var md5 = require('md5');
 var mysql = require('mysql');
-
+var JSAlert = require("js-alert");
 var app = express();
 
 app.use(cookieParser());
@@ -69,8 +71,9 @@ app.post('/auth/register', function(request, response) {
           console.log(err);
         }
       });
-      request.session.flashdata = "Akun "+nama+" berhasil dibuat";
-      response.redirect('/');
+      response.write( 
+            "<script type='text/javascript'>alert('Akun berhasil dibuat!')</script>" +
+            "<script type='text/javascript'>window.location = '/'</script>");
     }
   });
 });
