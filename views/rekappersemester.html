@@ -80,34 +80,47 @@
                           </div>
                        
                 
-  <table class="table table-bordered table-striped" id="rekap_table" style="width:100%">
-        <b>Nama Mata Kuliah : </b>
+  <!-- <table class="table table-bordered table-striped" id="rekap_table" style="width:100%">
+        <b>Mata Kuliah: </b>
+        <b id="namamatkul"></b>
+        <br>
+        <b>Nama Kelas: </b>
+        <b id="namakelas"></b>
         <tr>
-        <th style="width:25%">Nama Ruang</th>
-        <th style="width:25%">Pertemuan Ke</th>
-        <th style="width:25%">Jam Mulai</th>
-        <th style="width:25%">Jam Selesai</th>
+        <th style="width:25%">Mata Kuliah</th>
+        <th style="width:25%">Kelas</th>
+        <th style="width:25%">Peserta</th>
         </tr>
-    </table>
+    </table> -->
+
+    <h1><b>REKAP PER SEMESTER</b></h1>
+    <div id="findingDiv"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-$( document ).ready(function() {
- const urlParams = new URLSearchParams(window.location.search);
- const idmatkul = urlParams.get('idmatkul');
- $.getJSON("/rekappersemester/"+idmatkul, function(data){ 
-     var rekap_data = '';
-      $.each(data, function(key, value){
-          rekap_data += '<tr>';
-          rekap_data += '<td>'+value.nama_ruang+'</td>';
-          rekap_data += '<td>'+value.pertemuan_ke+'</td>';
-          rekap_data += '<td>'+value.jam_mulai+'</td>';
-          rekap_data += '<td>'+value.jam_selesai+'</td>';
-          rekap_data += '</tr>';
-      });
-      $('#rekap_table').append(rekap_data);    
-  });
- });
-</script> 
+
+    <script>
+    $( document ).ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idmatkul = urlParams.get('idmatkul');
+    $.getJSON('api/rekappersemester/'+idmatkul, function(data){ 
+        var tabel = '';
+        $.each(data, function(key, value){
+            tabel += '<table class="table table-bordered table-striped" id="rekap_table" style="width:100%">';
+            tabel += '<b>Mata Kuliah: </b><b>'+value.nama+'</b><br><b>Kelas: </b><b>'+value.kelas+'</b>';  
+            tabel += '<tr>';
+            tabel += '<th style="width:25%">Peserta</th>';
+            tabel += '<tr>';
+            for (let index = 0; index < value.peserta.length; index++) {
+                tabel += '<td>'+value.peserta[index]+'</td>';
+                tabel += '</tr>';
+            }
+            tabel += '</tr>';
+            tabel += '</tr>';
+            tabel += '</table>';
+        });
+        $('#findingDiv').append(tabel);
+    });
+    });
+    </script> 
  
              <!-- /. PAGE INNER  -->
             </div>
