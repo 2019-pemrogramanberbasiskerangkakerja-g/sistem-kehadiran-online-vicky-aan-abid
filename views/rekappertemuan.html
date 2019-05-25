@@ -77,34 +77,52 @@
                           </div>
                        
                 
-  <table class="table table-bordered table-striped" id="rekap_table" style="width:100%">
+  <!-- <table class="table table-bordered table-striped" id="rekap_table" style="width:100%">
         <tr>
         <th style="width:25%">Nama Ruang</th>
         <th style="width:25%">NRP</th>
         <th style="width:25%">Waktu Absen</th>
         <th style="width:25%">Masuk atau Keluar</th>
         </tr>
-    </table>
+    </table> -->
+
+    <h1><b>REKAP PER PERTEMUAN</b></h1>
+    <div id="findingDiv"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>
-$( document ).ready(function() {
- const urlParams = new URLSearchParams(window.location.search);
- const idmatkul = urlParams.get('idmatkul');
- const pertemuanke = urlParams.get('pertemuanke');     
- $.getJSON('/rekappertemuan/'+idmatkul+'/'+pertemuanke, function(data){ 
-     var rekap_data = '';
-      $.each(data, function(key, value){
-          rekap_data += '<tr>';
-          rekap_data += '<td>'+value.nama_ruang+'</td>';
-          rekap_data += '<td>'+value.nomorinduk+'</td>';
-          rekap_data += '<td>'+value.waktu_absen+'</td>';
-          rekap_data += '<td>'+value.masuk_or_keluar+'</td>';
-          rekap_data += '</tr>';
-      });
-      $('#rekap_table').append(rekap_data);    
-  });
- });
-</script> 
+
+    <script>
+    $( document ).ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idmatkul = urlParams.get('id_matkul');
+    const pertemuan = urlParams.get('pertemuan');
+    $.getJSON('api/rekappertemuan/'+idmatkul+'/'+pertemuan, function(data){ 
+        var tabel = '';
+        $.each(data, function(key, value){
+                var items = value.Absensis;
+                for (let i = 0; i < items.length; i++) {
+                    var objectInResponse = items[i]; //get current object
+                    tabel += '<table class="table table-bordered table-striped" id="rekap_table" style="width:100%">';
+                    tabel += '<b>Mata Kuliah: </b><b>'+value.nama+'</b><br><b>Kelas: </b><b>'+value.kelas+'</b><br><b>Pertemuan: </b><b>'+objectInResponse.pertemuan+'</b>';  
+                    tabel += '<tr>';
+                    tabel += '<th style="width:25%">Peserta</th>';
+                    tabel += '<th style="width:25%">Waktu Masuk</th>';
+                    tabel += '<tr>';
+                    var absen = objectInResponse.peserta_masuk;
+                    for (let j = 0; j < absen.length; j++) {
+                        var objectInabsensis = absen[j]; //get current object  
+                        tabel += '<td>'+objectInabsensis.nrp+'</td>';
+                        tabel += '<td>'+objectInabsensis.waktu_masuk+'</td>';
+                        tabel += '</tr>';
+                    }                  
+                    tabel += '</tr>';
+                    tabel += '</tr>';
+                    tabel += '</table>';
+                }
+        });
+        $('#findingDiv').append(tabel);
+    });
+    });
+    </script>
  
              <!-- /. PAGE INNER  -->
             </div>
