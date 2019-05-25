@@ -24,9 +24,9 @@ app.use(express.static(__dirname + '/assets'));
 
 var db = mysql.createConnection({
     host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'absenonline'
+    user     : 'pbkk_absenonline',
+    password : 'pbkk_absenonline',
+    database : 'pbkkwebi_absenonline'
 });
 
 db.connect(function(err) {
@@ -71,9 +71,8 @@ app.post('/auth/register', function(request, response) {
           console.log(err);
         }
       });
-      response.write( 
-            "<script type='text/javascript'>alert('Akun berhasil dibuat!')</script>" +
-            "<script type='text/javascript'>window.location = '/'</script>");
+      request.session.flashdata = "Akun "+nama+" berhasil dibuat";
+      response.redirect('/auth');
     }
   });
 });
@@ -120,13 +119,13 @@ app.post('/auth/login', function(request, response) {
               request.session.nama_user = results[0].nama_user;
               request.session.role = results[0].role;
   
-              if(request.session.role == 0){
+              if(request.session.role == 0) {
                 response.redirect('/dosen');
               }else{
-                  response.redirect('/mahasiswa');
+                response.redirect('/mahasiswa');
                 }
               }else{
-              request.session.flashdata = "Username atau password salah!";
+            request.session.flashdata = "Username atau password salah!";
               response.redirect('/auth');
             }
           });
@@ -444,24 +443,27 @@ app.post('/api/tambahpeserta', function (req, res) {
 */
 
 app.post('/tambahmatkul', function (req, res) {
+  var id_matkul = req.body.id_matkul;
   var nama_matkul = req.body.nama_matkul;
   var kelas_matkul = req.body.kelas;
   var semester = req.body.semester;
   
-  db.query('SELECT * FROM mata_kuliah WHERE nama_matkul=? and kelas_matkul=?',
+  db.query('SELECT * FROM mata_kuliah where nama_matkul=? and kelas_matkul=?',
    [nama_matkul,kelas_matkul], function (error, results, fields) {
     if (error){
       console.log(error);
     }
     if (results.length > 0){
-      res.status(404).json({ error: 'Kelas sudah terdaftar' });
+     res.write( 
+            "<script type='text/javascript'>alert('Kelas sudah terdaftar')</script>" +
+            "<script type='text/javascript'>window.location = '/dosen'</script>");
     }else{
-      db.query('INSERT INTO mata_kuliah (nama_matkul,kelas_matkul,semester) values (?,?,?)',
-        [nama_matkul,kelas_matkul,semester], function (error, results, fields) {
+      db.query('INSERT INTO mata_kuliah (id_matkul, nama_matkul,kelas_matkul,semester) values (?,?,?,?)',
+        [id_matkul,nama_matkul,kelas_matkul,semester], function (error, results, fields) {
           if (error){
             console.log(error);
           }else{
-            res.status(200).json({ OK: 'Mata Kuliah '+nama_matkul+' Kelas '+kelas_matkul+' berhasil ditambahkan' });
+          res.status(200).json({ OK: 'Mata Kuliah '+nama_matkul+' Kelas '+kelas_matkul+' berhasil ditambahkan' });
           }
         });
     }
