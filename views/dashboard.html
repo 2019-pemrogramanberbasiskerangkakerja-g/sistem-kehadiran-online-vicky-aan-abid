@@ -114,7 +114,7 @@
                         <a href="#tambahmahasiswa" data-toggle="modal" > <br><h4>Tambah Mahasiswa</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
-                      <form method="post" action="/tambahmahasiswa">
+                      <form method="post" action="/api/tambahmahasiswa">
                         <div id="tambahmahasiswa" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -156,7 +156,7 @@
                         <a href="#tambahpeserta"  data-toggle="modal"><br> <h4>Tambah Mhs ke Matkul</h4></a>
                       </div>
                     <!-- Edit Modal HTML -->
-                    <form method="post" action="tambahpeserta">
+                    <form method="post" action="api/tambahpeserta">
                         <div id="tambahpeserta" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -169,6 +169,10 @@
                                   <div class="form-group">
                                     <label>Kode Mata Kuliah</label>
                                     <input name="id_matkul" type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Kelas</label>
+                                    <input name="kelas" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>NRP</label>
@@ -194,7 +198,7 @@
                         <a href="#tambahmatkul" data-toggle="modal"><br><h4>Tambah Mata Kuliah</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
-                      <form method="post" action="tambahmatkul">
+                      <form method="post" action="api/tambahmatkul">
                         <div id="tambahmatkul" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -206,15 +210,15 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>Nama Mata Kuliah</label>
-                                    <input name="nama_matkul" type="text" class="form-control" required>
+                                    <input name="nama" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Kelas</label>
                                     <input name="kelas" type="text" class="form-control" required>
                                   </div>  
                                   <div class="form-group">
-                                    <label>Semester</label>
-                                    <input name="semester" type="text" class="form-control" required>
+                                    <label>ID Mata Kuliah</label>
+                                    <input name="id_matkul" type="text" class="form-control" required>
                                   </div>                                    
                                         
                                 </div>
@@ -236,7 +240,7 @@
                         <a href="#tambahjadwal" data-toggle="modal" > <h4>Tambah Jadwal Pertemuan</h4></a>
                       </div>
                       <!-- Edit Modal HTML -->
-                      <form method="post" action="tambahjadwal">
+                      <form method="post" action="api/tambahjadwal">
                         <div id="tambahjadwal" class="modal fade">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -252,19 +256,23 @@
                                   </div>
                                   <div class="form-group">
                                     <label>Pertemuan Ke</label>
-                                    <input name="pertemuan_ke" type="text" class="form-control" required>
+                                    <input name="pertemuan" type="text" class="form-control" required>
                                   </div>  
                                   <div class="form-group">
                                     <label>Nama Ruang</label>
-                                    <input name="nama_ruang" type="text" class="form-control" required>
+                                    <input name="ruang" type="text" class="form-control" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Kelas</label>
+                                    <input name="kelas" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Jam Masuk</label>
-                                    <input name="jam_masuk" type="time" name="jam_masuk" class="form-control" required>
+                                    <input name="waktu_mulai" type="time" name="jam_masuk" class="form-control" required>
                                   </div> 
                                   <div class="form-group">
                                     <label>Jam Selesai</label>
-                                    <input name="jam_selesai" type="time" name="jam_selesai" class="form-control" required>
+                                    <input name="waktu_selesai" type="time" name="jam_selesai" class="form-control" required>
                                   </div>                                     
                                         
                                 </div>
@@ -332,11 +340,11 @@
                                 <div class="modal-body">          
                                   <div class="form-group">
                                     <label>Kode Mata Kuliah</label>
-                                    <input name="idmatkul" type="text" class="form-control" required>
+                                    <input name="id_matkul" type="text" class="form-control" required>
                                   </div>
                                   <div class="form-group">
                                     <label>Pertemuan Ke-</label>
-                                    <input name="pertemuanke" type="text" class="form-control" required>
+                                    <input name="pertemuan" type="text" class="form-control" required>
                                   </div>
                                   
                                           

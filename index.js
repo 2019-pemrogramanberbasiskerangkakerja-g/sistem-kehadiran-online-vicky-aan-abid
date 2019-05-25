@@ -171,6 +171,27 @@ app.post('/absen', function(req, res) {
   });
 });
 
+app.post('/api/absen', function (req, res) {
+  var ruang = req.body.ruang;
+  var nrp = req.body.nrp;
+  var request = require("request")
+
+  var url = "http://pbkk.serveo.net/api/absen/"+ruang+"/"+nrp;
+  
+  request.post(
+    url,
+    { json: { key: 'value' } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.write( 
+              "<script type='text/javascript'>alert('Absen "+nrp+" di ruang "+ruang+" berhasil!')</script>" +
+              "<script type='text/javascript'>window.location = '/mahasiswa'</script>");
+        }
+    }
+);
+});
+
 /*
 2. Rekap kuliah per semester
     GET /rekappersemester/IDMATAKULIAH
@@ -186,6 +207,24 @@ app.get('/rekappersemester/:id_matkul', function (req, res) {
       res.status(200).json(results);
     }
   });
+});
+
+app.get('/api/rekappersemester/:id_matkul', function (req, res) {
+    var id_matkul = req.params.id_matkul;
+    var request = require("request")
+
+    var url = "http://pbkk.serveo.net/api/rekap/"+id_matkul;
+
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+
+        if (!error) {
+          console.log(body) // Print the json response
+          res.status(200).json(body); // Print the json response
+        }
+    })
 });
 
 app.get('/rekappersemester', function(request, response) {
@@ -212,6 +251,25 @@ app.get('/rekappertemuan/:id_matkul/:pertemuanke', function (req, res) {
       }
     });
   });
+});
+
+app.get('/api/rekappertemuan/:id_matkul/:pertemuan', function (req, res) {
+  var id_matkul = req.params.id_matkul;
+  var pertemuan = req.params.pertemuan;
+  var request = require("request")
+
+  var url = "http://pbkk.serveo.net/api/rekap/"+id_matkul+"/"+pertemuan;
+
+  request({
+      url: url,
+      json: true
+  }, function (error, response, body) {
+
+      if (!error) {
+        console.log(body) // Print the json response
+        res.status(200).json(body); // Print the json response
+      }
+  })
 });
 
 app.get('/rekappertemuan', function(request, response) {
@@ -296,6 +354,30 @@ app.post('/tambahmahasiswa', function (req, res) {
   });
 });
 
+app.post('/api/tambahmahasiswa', function (req, res) {
+  var nrp = req.body.nrp;
+  var nama = req.body.nama;
+  var password = req.body.password;
+  var request = require("request")
+
+  var url = "http://pbkk.serveo.net/api/user/tambahmahasiswa";
+  
+  request.post(
+    url,
+    { json: { nrp:nrp,
+      nama:nama,
+      password:password } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.write( 
+              "<script type='text/javascript'>alert('Peserta "+nrp+" berhasil dibuat!')</script>" +
+              "<script type='text/javascript'>window.location = '/dosen'</script>");
+        }
+    }
+);
+});
+
 /*
 7. Tambah user mahasiswa ke mata kuliah
     POST /tambahpeserta
@@ -333,6 +415,28 @@ app.post('/tambahpeserta', function (req, res) {
   });
 });
 
+app.post('/api/tambahpeserta', function (req, res) {
+  var id_matkul = req.body.id_matkul;
+  var kelas = req.body.kelas;
+  var nrp = req.body.nrp;
+  var request = require("request")
+
+  var url = "http://pbkk.serveo.net/api/matakuliah/tambahpeserta/"+id_matkul+"/"+kelas+"/"+nrp;
+  
+  request.post(
+    url,
+    { json: { key: 'value' } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.write( 
+              "<script type='text/javascript'>alert('Peserta "+nrp+" berhasil ditambahkan!')</script>" +
+              "<script type='text/javascript'>window.location = '/dosen'</script>");
+        }
+    }
+);
+});
+
 /*
 8. Tambah mata kuliah baru
     POST /tambahmatkul
@@ -362,6 +466,30 @@ app.post('/tambahmatkul', function (req, res) {
         });
     }
   });
+});
+
+app.post('/api/tambahmatkul', function (req, res) {
+  var nama = req.body.nama;
+  var kelas = req.body.kelas;
+  var id_matkul = req.body.id_matkul;
+  var request = require("request")
+
+  var url = "http://pbkk.serveo.net/api/matakuliah/tambahmatkul";
+  
+  request.post(
+    url,
+    { json: { nama:nama,
+      kelas:kelas,
+      id_matkul:id_matkul } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.write( 
+              "<script type='text/javascript'>alert('Mata kuliah "+nama+" kelas "+kelas+" berhasil dibuat!')</script>" +
+              "<script type='text/javascript'>window.location = '/dosen'</script>");
+        }
+    }
+);
 });
 
 /*
@@ -395,4 +523,34 @@ app.post('/tambahjadwal', function (req, res) {
         });
     }
   });
+});
+
+app.post('/api/tambahjadwal', function (req, res) {
+  var id_matkul = req.body.id_matkul;
+  var pertemuan = req.body.pertemuan;
+  var ruang = req.body.ruang;
+  var kelas = req.body.kelas;
+  var waktu_mulai = req.body.waktu_mulai;
+  var waktu_selesai = req.body.waktu_selesai;
+  var request = require("request")
+
+  var url = "http://pbkk.serveo.net/api/absen/tambahjadwal";
+  
+  request.post(
+    url,
+    { json: { id_matkul:id_matkul,
+      pertemuan:pertemuan,
+      ruang:ruang,
+      kelas:kelas,
+      waktu_mulai:waktu_mulai,
+      waktu_selesai:waktu_selesai } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            res.write( 
+              "<script type='text/javascript'>alert('Jadwal "+id_matkul+" pertemuan "+pertemuan+" berhasil dibuat!')</script>" +
+              "<script type='text/javascript'>window.location = '/dosen'</script>");
+        }
+    }
+);
 });
