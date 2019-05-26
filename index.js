@@ -24,9 +24,9 @@ app.use(express.static(__dirname + '/assets'));
 
 var db = mysql.createConnection({
     host     : 'localhost',
-    user     : 'pbkk_absenonline',
-    password : 'pbkk_absenonline',
-    database : 'pbkkwebi_absenonline'
+    user     : 'root',
+    password : '',
+    database : 'absenonline'
 });
 
 db.connect(function(err) {
@@ -72,7 +72,9 @@ app.post('/auth/register', function(request, response) {
         }
       });
       request.session.flashdata = "Akun "+nama+" berhasil dibuat";
-      response.redirect('/auth');
+      response.write( 
+              "<script type='text/javascript'>alert('Berhasil mendaftarkan "+nama+"')</script>" +
+              "<script type='text/javascript'>window.location = '/auth'</script>");
     }
   });
 });
@@ -120,20 +122,28 @@ app.post('/auth/login', function(request, response) {
               request.session.role = results[0].role;
   
               if(request.session.role == 0) {
-                response.redirect('/dosen');
+                response.write( 
+              "<script type='text/javascript'>alert('Berhasl login dosen')</script>" +
+              "<script type='text/javascript'>window.location = '/dosen'</script>");
               }else{
-                response.redirect('/mahasiswa');
+                response.write( 
+              "<script type='text/javascript'>alert('Berhasl login mahasiswa')</script>" +
+              "<script type='text/javascript'>window.location = '/mahasiswa'</script>");
                 }
               }else{
             request.session.flashdata = "Username atau password salah!";
-              response.redirect('/auth');
+            response.write( 
+              "<script type='text/javascript'>alert('Username atau password salah')</script>" +
+              "<script type='text/javascript'>window.location = '/auth'</script>");
             }
           });
 });
 
 app.get('/auth/logout', function(request, response) {
-    request.session.destroy();    
-    response.redirect('/auth');
+    request.session.destroy();  
+    response.write( 
+              "<script type='text/javascript'>alert('Berhasl logout')</script>" +
+              "<script type='text/javascript'>window.location = '/auth'</script>");
 });
 //------------END LOGIN--------------//
 
