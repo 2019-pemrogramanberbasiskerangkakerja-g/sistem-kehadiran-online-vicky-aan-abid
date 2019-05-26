@@ -379,9 +379,14 @@ app.post('/api/tambahmahasiswa', function (req, res) {
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
-            res.write( 
-              "<script type='text/javascript'>alert('Peserta "+nrp+" berhasil dibuat!')</script>" +
-              "<script type='text/javascript'>window.location = '/dosen'</script>");
+            res.writeHeader(200, {"Content-Type": "text/html", });
+    res.write("<html><body><script>alert('Mahasiswa "+nrp+" berhasil ditambahkan ')  ;</script></body>");
+    res.write("<script language='javascript'>window.location='/dosen';</script>");
+  
+    res.end();
+            // res.write( 
+            //   "<script type='text/javascript'>alert('Peserta "+nrp+" berhasil dibuat!')</script>" +
+            //   "<script type='text/javascript'>window.location = '/dosen'</script>");
         }
     }
 );
@@ -438,9 +443,12 @@ app.post('/api/tambahpeserta', function (req, res) {
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
-            res.write( 
-              "<script type='text/javascript'>alert('Peserta "+nrp+" berhasil ditambahkan!')</script>" +
-              "<script type='text/javascript'>window.location = '/dosen'</script>");
+
+            res.writeHeader(200, {"Content-Type": "text/html", });
+    res.write("<html><body><script>alert('Mahasiswa "+nrp+" berhasil ditambahkan ke kelas "+kelas+" ')  ;</script></body>");
+    res.write("<script language='javascript'>window.location='/dosen';</script>");
+  
+    res.end();
         }
     }
 );
@@ -496,9 +504,14 @@ app.post('/api/tambahmatkul', function (req, res) {
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
-            res.write( 
-              "<script type='text/javascript'>alert('Mata kuliah "+nama+" kelas "+kelas+" berhasil dibuat!')</script>" +
-              "<script type='text/javascript'>window.location = '/dosen'</script>");
+            res.writeHeader(200, {"Content-Type": "text/html", });
+    res.write("<html><body><script>alert('Mata kuliah "+nama+" kelas "+kelas+" berhasil dibuat! ')  ;</script></body>");
+    res.write("<script language='javascript'>window.location='/dosen';</script>");
+  
+    res.end();
+            // res.write( 
+            //   "<script type='text/javascript'>alert('Mata kuliah "+nama+" kelas "+kelas+" berhasil dibuat!')</script>" +
+            //   "<script type='text/javascript'>window.location = '/dosen'</script>");
         }
     }
 );
@@ -559,9 +572,12 @@ app.post('/api/tambahjadwal', function (req, res) {
     function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
-            res.write( 
-              "<script type='text/javascript'>alert('Jadwal "+id_matkul+" pertemuan "+pertemuan+" berhasil dibuat!')</script>" +
-              "<script type='text/javascript'>window.location = '/dosen'</script>");
+      
+              res.writeHeader(200, {"Content-Type": "text/html", });
+    res.write("<html><body><script>alert('Kelas "+kelas+", Ruang "+ruang+", pertemuan "+pertemuan+" berhasil dibuat!')  ;</script></body>");
+    res.write("<script language='javascript'>window.location='/dosen';</script>");
+  
+    res.end();
         }
     }
 );
